@@ -22,10 +22,6 @@ export const store = new Vuex.Store({
     },
     mutations: { 
         rollTheDice(state) {
-            if (state.bet == 0) {
-                state.message = "Please make a bet"
-                return false;
-            }
 
             state.winFlag = false;
             state.loseFlag = false;

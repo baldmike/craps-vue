@@ -8,7 +8,7 @@
 
           
 
-          <button class="roll-button" @click.prevent="rollDice">Roll Dice</button>
+          <button class="roll-button" @click.prevent="rollDice('http://soundbible.com/grab.php?id=182&type=mp3')">Roll</button>
 
           
         </div>
@@ -24,7 +24,17 @@
       }
     },
     methods: {
-      rollDice() {
+      rollDice(sound) {
+
+        if (this.$store.state.bet == 0) {
+            this.$store.state.message = "Please make a bet"
+            return false;
+        }
+        
+        if(sound) {
+        let audio = new Audio(sound);
+        audio.play();
+      }
 
         this.$store.dispatch('rollDice');
 
