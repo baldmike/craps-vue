@@ -28,6 +28,9 @@
         },
         message() {
             return this.$store.state.message;
+        },
+        rollTotal() {
+          return this.$store.state.rollTotal;
         }
     }
   }

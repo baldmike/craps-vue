@@ -15,17 +15,17 @@ export default {
     },
     computed: {
         nowPlaying() {
-            if(this.$store.state.comeOut) {
-                return "Comin' Out!";
-            } else if (this.$store.state.winFlag) {
+            
+            if (this.$store.state.winFlag) {
                 return "Big Winner!";
             } else if (this.$store.state.loseFlag) {
-                return "Seven OUT!";
+                return "You Lose!";
+            } else if(this.$store.state.comeOut) {
+                return "Comin' Out!";
             } else {
-                return "Your point is " + this.$store.state.point
+                return "Your point is " + this.$store.state.point  
             }
-                
-        }
+        }   
     }
 }
 

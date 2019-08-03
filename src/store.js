@@ -13,13 +13,19 @@ export const store = new Vuex.Store({
             comeOut: true,
             message: '',
             winFlag: false,
-            loseFlag: false
+            loseFlag: false,
+            bank: 500,
+            bet: 0
         }
     },
     getters: { 
     },
     mutations: { 
         rollTheDice(state) {
+            if (state.bet == 0) {
+                state.message = "Please make a bet"
+                return false;
+            }
 
             state.winFlag = false;
             state.loseFlag = false;
@@ -35,13 +41,16 @@ export const store = new Vuex.Store({
 
                 if( state.comeOut ) {
                 
+                    
                     if(state.rollTotal===7 || state.rollTotal===11) {
                         state.message = "Winner! Winner!"
                         state.winFlag = true;
+                        store.dispatch('winLogic');
     
                     } else if(state.rollTotal===2 || state.rollTotal===3 || state.rollTotal===12) {
                         state.message = "Craps!"
                         state.loseFlag = true;
+                        store.dispatch('loseLogic');
                     } else {
                         state.point = state.rollTotal;
                         state.message = "Your point is " + state.point;
@@ -70,6 +79,28 @@ export const store = new Vuex.Store({
         },
         message(state, payload) {
             state.message = payload;
+        },
+        bet(state, payload) {
+            if(state.bank >= payload) {
+                state.bet += payload;
+                state.bank -= payload;
+            } else {
+                state.message = "You don't have enough cheese. Roll!"
+            }
+        },
+        clearBet(state) {
+            state.bank += state.bet;
+            state.bet = 0;
+        },
+        winLogic(state) {
+            state.winFlag = true;
+            state.bank += state.bet
+            state.bank += state.bet
+            state.bet = 0;
+        },
+        loseLogic(state) {
+            state.loseFlag = true;
+            state.bet = 0;
         }
     },
     actions: { 
@@ -80,13 +111,21 @@ export const store = new Vuex.Store({
             context.commit('setThePoint', payload);
         },
         winLogic(context, payload) {
+            context.commit('winLogic');
             context.commit('gameOver', payload);
         },
         loseLogic(context, payload) {
+            context.commit('loseLogic');
             context.commit('gameOver', payload);
         },
         message(context, payload) {
             context.commit('message', payload);
+        },
+        increaseBet(context, payload) {
+            context.commit('bet', payload);  
+        },
+        clearBet(context) {
+            context.commit('clearBet');
         }
     }
 })
