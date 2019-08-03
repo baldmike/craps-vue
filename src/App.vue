@@ -1,17 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <craps-game/> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <wager-component/>
+        </div>
+        
+        <div class="col-sm">
+          <dice-component/>
+        </div>
+        
+        <div class="col-sm">
+          <outcome-component/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <now-playing/>
+        </div>
+      </div>
+    </div>
+    
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CrapsGame from './components/CrapsGame.vue'
+
+import WagerComponent from './components/WagerComponent.vue'
+import DiceComponent from './components/DiceComponent.vue'
+import OutcomeComponent from './components/OutcomeComponent.vue'
+import NowPlaying from './components/NowPlayingComponent.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    CrapsGame,
+    WagerComponent,
+    DiceComponent,
+    OutcomeComponent,
+    NowPlaying
   }
 }
 </script>
